@@ -1,12 +1,14 @@
 h2. Create a new message pusher
 
-  RestClient.put 'http://localhost:8080/n/hello', :adapter => "email", :dest => "sample@gmail.com"
+  RestClient.put 'http://pushr.heroku.com/n/hello', :adapter => "email", :dest => "sample@gmail.com"
 
-  curl 'http://localhost:8080/n/hello' -X PUT -d adapter=email -d dest="sample@gmail.com"
+  curl 'http://pushr.heroku.com/n/hello' -X PUT -d adapter=email -d dest="sample@gmail.com"
 
 h2. Send a message
 
-  RestClient.post 'http://localhost:8080/n/hello', :title => "Hi!", :message => "Hello World"
+  RestClient.post 'http://pushr.heroku.com/n/hello', :title => "Hi!", :message => "Hello World"
 
-  curl 'http://localhost:8080/n/hello' -X POST -d title="HI!" -d message="Hello World"
+  curl 'http://pushr.heroku.com/n/hello' -X POST -d title="HI!" -d message="Hello World"
 
+
+curl 'http://pushr.heroku.com/n/hello' -X DELETE -d adapter=email -d dest="siu.ying@gmail.com"
