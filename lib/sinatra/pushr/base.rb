@@ -23,11 +23,6 @@ module Sinatra
           erb :index
         end
         
-        # Page to create a node
-        app.get '/n' do
-          
-        end
-        
         # Send input message
         app.get '/n/:name' do
           find_node(params[:name])
@@ -39,6 +34,7 @@ module Sinatra
           adapter = params[:adapter]
           dest    = params[:dest]
           name    = params[:name]
+          raise ArgumentError.new("Missing required parameter") if (adapter.nil? || dest.nil? || name.nil?)
 
           node = Node.first(:name => name)
           halt(500, "node already exists") unless node.nil?  
@@ -54,7 +50,8 @@ module Sinatra
           find_node(params[:name])
           title   = params[:title]
           message = params[:message]
-
+          raise ArgumentError.new("Missing required parameter") if (@node.nil? || title.nil? || message.nil?)
+          
           Timeout::timeout(@timeout) do
             Sinatra::Pushr::Adapters.send_message(@node.adapter, @node.destination, title, message)
           end
