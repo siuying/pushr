@@ -1,0 +1,4 @@
+sinatra
+json
+activesupport --version '=> 2.2.0'
+actionmailer --version '=> 2.2.0'
