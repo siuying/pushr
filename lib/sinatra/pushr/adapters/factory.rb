@@ -12,7 +12,7 @@ module Sinatra
         end
 
         def register(name, adapter)
-          @adapters[name] = adapter
+          @adapters[name] = adapter.new
         end
       end
     end

@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'datamapper'
+
 module Sinatra
   module Pushr
     class Node

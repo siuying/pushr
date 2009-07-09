@@ -1,0 +1,12 @@
+
+adapter = params[:adapter]
+address = params[:address]
+
+RestClient.put 'http://localhost:8080/n/emailer', :adapter => "email", :dest => "siu.ying@gmail.com"
+
+title   = params[:title]
+message = params[:message]
+
+RestClient.post 'http://localhost:8080/n/emailer', :title => "Hi!", :message => "Hello World"
+
+RestClient.get 'http://localhost:8080/n/emailer'

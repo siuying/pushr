@@ -8,7 +8,7 @@ module Sinatra
           symbol
         end
 
-        def send(title, message)
+        def send_message(dest, title, message)
           raise "Implement Me"
         end
 
@@ -24,6 +24,14 @@ module Sinatra
               to_sym
         end
       end
+
+      def send_message(adapter, dest, title, message)
+        adapter = Factory.instance.adapters[adapter.to_sym]
+        raise ArgumentError.new("adapter not found") if adapter.nil?
+
+        adapter.send_message(dest, title, message)
+      end
+      module_function :send_message
     end
   end
 end
