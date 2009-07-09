@@ -8,5 +8,9 @@ title   = params[:title]
 message = params[:message]
 
 RestClient.post 'http://localhost:8080/n/emailer', :title => "Hi!", :message => "Hello World"
-
 RestClient.get 'http://localhost:8080/n/emailer'
+
+
+
+RestClient.put 'http://localhost:8080/n/growl1282', :adapter => "growl", :dest => "localhost"
+RestClient.post 'http://localhost:8080/n/growl1282', :title => "Hi!", :message => "Hello World"

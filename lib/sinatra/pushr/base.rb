@@ -45,7 +45,8 @@ module Sinatra
 
           node = Node.new(:name => name, :destination => dest, :adapter => adapter)
           node.save
-          "OK"
+
+          halt 400
         end
         
         # Actually post message
@@ -57,13 +58,15 @@ module Sinatra
           Timeout::timeout(@timeout) do
             Sinatra::Pushr::Adapters.send_message(@node.adapter, @node.destination, title, message)
           end
-          "OK"
+
+          halt 400
         end
 
         # Delete Message
         app.delete '/n/:name' do
           find_node(params[:name])
           @node.destroy
+          halt 400
         end
       end
       

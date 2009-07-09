@@ -1,5 +1,6 @@
 require 'logger'
 
+
 module Sinatra
   module Pushr
     module Adapters
@@ -7,8 +8,11 @@ module Sinatra
         def initialize
           @log = Logger.new($stdout)
         end
+
         def send_message(dest, title, message)
           @log.info("send(#{dest}) -> #{title}: #{message}")
+          
+          
         end
         
         register self
