@@ -1,16 +1,12 @@
+h2. Create a new message pusher
 
-h2. Create a new Pushr
+  RestClient.put 'http://localhost:8080/n/hello', :adapter => "email", :dest => "sample@gmail.com"
 
-  RestClient.put 'http://localhost:8080/n/emailer', :adapter => "email", :dest => "siu.ying@gmail.com"
-
-
-curl http://localhost:8080/n/emailer2 -X PUT -d adapter=email dest="siu.ying@gmail.com"
-  
+  curl 'http://localhost:8080/n/hello' -X PUT -d adapter=email -d dest="sample@gmail.com"
 
 h2. Send a message
 
-RestClient.post 'http://localhost:8080/n/emailer', :title => "Hi!", :message => "Hello World"
+  RestClient.post 'http://localhost:8080/n/hello', :title => "Hi!", :message => "Hello World"
 
+  curl 'http://localhost:8080/n/hello' -X POST -d title="HI!" -d message="Hello World"
 
-RestClient.put 'http://localhost:8080/n/growl1282', :adapter => "growl", :dest => "localhost"
-RestClient.post 'http://localhost:8080/n/growl1282', :title => "Hi!", :message => "Hello World"

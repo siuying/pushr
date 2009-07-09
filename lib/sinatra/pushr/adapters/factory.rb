@@ -14,6 +14,12 @@ module Sinatra
         def register(name, adapter)
           @adapters[name] = adapter.new
         end
+        
+        def configure(options)
+          @adapters.keys.each do |k| 
+            @adapters[k].options = options
+          end
+        end
       end
     end
   end

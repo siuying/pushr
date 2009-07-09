@@ -2,6 +2,8 @@ module Sinatra
   module Pushr
     module Adapters
       class BaseAdpater
+        attr_accessor :options
+
         def self.register(clazz)
           symbol = to_symbol_name(clazz)
           Factory.instance.register(symbol, clazz)
@@ -11,7 +13,10 @@ module Sinatra
         def send_message(dest, title, message)
           raise "Implement Me"
         end
-
+        
+        def configure(options)
+        end
+        
         protected
         def self.to_symbol_name(class_name)
           class_name.
@@ -24,11 +29,15 @@ module Sinatra
               to_sym
         end
       end
-
+      
+      def configure(options)
+        Factory.instance.configure(options)
+      end
+      module_function :configure
+      
       def send_message(adapter, dest, title, message)
         adapter = Factory.instance.adapters[adapter.to_sym]
         raise ArgumentError.new("adapter not found") if adapter.nil?
-
         adapter.send_message(dest, title, message)
       end
       module_function :send_message

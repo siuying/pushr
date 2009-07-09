@@ -17,12 +17,13 @@ module Sinatra
 
         app.before do
           @timeout = options.timeout
+          Sinatra::Pushr::Adapters.configure(options.adapter_config)
         end
-        
+
         app.get '/' do
           erb :index
         end
-        
+
         # Send input message
         app.get '/n/:name' do
           find_node(params[:name])
@@ -42,7 +43,7 @@ module Sinatra
           node = Node.new(:name => name, :destination => dest, :adapter => adapter)
           node.save
 
-          halt 400
+          halt 200
         end
         
         # Actually post message
@@ -56,14 +57,14 @@ module Sinatra
             Sinatra::Pushr::Adapters.send_message(@node.adapter, @node.destination, title, message)
           end
 
-          halt 400
+          halt 200
         end
 
         # Delete Message
         app.delete '/n/:name' do
           find_node(params[:name])
           @node.destroy
-          halt 400
+          halt 200
         end
       end
       
