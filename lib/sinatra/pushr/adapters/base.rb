@@ -5,8 +5,6 @@ module Sinatra
         def self.register(clazz)
           symbol = to_symbol_name(clazz)
           Factory.instance.register(symbol, clazz)
-          
-          puts symbol
           symbol
         end
 
