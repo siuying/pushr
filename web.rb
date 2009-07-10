@@ -16,7 +16,7 @@ class Pushr < Sinatra::Default
   set :views,  'views'
   set :public, 'public'
   set :environment, ENV['RACK_ENV'].to_sym
-  set :adapters, "email,growl,twitter"
+  set :adapters,    ENV['ADAPTERS'] || "email,growl,twitter"
   set :adapter_config, {}
 
 end
