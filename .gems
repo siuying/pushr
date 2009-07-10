@@ -2,3 +2,4 @@ sinatra
 json
 activesupport --version '=> 2.2.0'
 actionmailer --version '=> 2.2.0'
+rest-client --version '=> 1.0.1'
