@@ -17,7 +17,7 @@ module Sinatra
         
         def configure(options)
           @adapters.keys.each do |k| 
-            @adapters[k].options = options
+            @adapters[k].configure(options)
           end
         end
       end

@@ -12,14 +12,14 @@ class Notifier < ActionMailer::Base
 end
 
 Notifier.delivery_method = :smtp
-Notifier.template_root = "#{File.dirname(__FILE__)}/views"
+Notifier.template_root = File.expand_path(File.dirname(__FILE__), "../../../../views")
 Notifier.smtp_settings = {
-  :address  => ENV['MAIL_ADDRESS'],
-  :port  => ENV['MAIL_PORT'],
-  :user_name  => ENV['MAIL_USER'],
-  :password  => ENV['MAIL_PASS'],
+  :address        => ENV['MAIL_ADDRESS'],
+  :port           => ENV['MAIL_PORT'],
+  :user_name      => ENV['MAIL_USER'],
+  :password       => ENV['MAIL_PASS'],
   :authentication => :plain,
-  :tls => ENV['MAIL_TLS_ENABLED'] == "true"
+  :tls            => ENV['MAIL_TLS_ENABLED'] == "true"
 }
 
 module Sinatra
