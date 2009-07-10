@@ -1,14 +1,81 @@
-h2. Create a new message pusher
+Pushr - Restful Notification
+============================
 
-  RestClient.put 'http://pushr.heroku.com/n/hello', :adapter => "email", :dest => "sample@gmail.com"
+A restful web service to create and send notifications.
 
-  curl 'http://pushr.heroku.com/n/hello' -X PUT -d adapter=email -d dest="sample@gmail.com"
+---
 
-h2. Send a message
+Create a new message pusher
+---------------------------
 
-  RestClient.post 'http://pushr.heroku.com/n/hello', :title => "Hi!", :message => "Hello World"
+To create a node, you send PUT request under http://pushr.heroku.com/n/<new-node-name>, supplied with adapter (name of adapter) and dest (destination).
 
-  curl 'http://pushr.heroku.com/n/hello' -X POST -d title="HI!" -d message="Hello World"
+**URL:**
 
+http://pushr.heroku.com/n/_node-name_
 
-curl 'http://pushr.heroku.com/n/hello' -X DELETE -d adapter=email -d dest="siu.ying@gmail.com"
+**HTTP Method:**
+
+PUT
+
+**Parameters:**
+
+*  adapter - Adapter name. Can be one of "email", "tweeter" and "growl"
+*  dest    - Destination. Depends on adapter, this could be email or address ... etc.
+
+**Examples:**
+
+    RestClient.put 'http://pushr.heroku.com/n/hello', :adapter => "email", :dest => "sample@gmail.com"
+
+    curl 'http://pushr.heroku.com/n/hello' -X PUT -d adapter=email -d dest="sample@gmail.com"
+
+---
+
+Send a message
+--------------
+
+To send message, you POST the message to a node.
+
+**URL:**
+
+http://pushr.heroku.com/n/_node-name_
+
+**HTTP Method:**
+
+POST
+
+**Parameters:**
+
+* title    - Optional. Title of notification.
+* message  - Message of notification.
+
+**Examples:**
+
+    RestClient.post 'http://pushr.heroku.com/n/hello', :title => "Hi!", :message => "Hello World"
+
+    curl 'http://pushr.heroku.com/n/hello' -X POST -d title="HI!" -d message="Hello World"
+
+---
+
+Delete a Node
+-------------
+
+To send message, you POST the message to a node.
+
+**URL:**
+
+http://pushr.heroku.com/n/_node-name_
+
+**HTTP Method:**
+
+DELETE
+
+**Parameters:**
+
+ (none)
+
+**Examples:**
+  
+    RestClient.delete 'http://pushr.heroku.com/n/hello'
+
+    curl 'http://pushr.heroku.com/n/hello' -X DELETE -d adapter=email -d dest="siu.ying@gmail.com"
