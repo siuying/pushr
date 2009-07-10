@@ -17,7 +17,7 @@ Notifier.template_root = "views"
 module Sinatra
   module Pushr
     module Adapters
-      class EmailAdpater < BaseAdpater
+      class EmailAdapter < BaseAdapter
         def initialize
           @log = Logger.new($stdout)
         end

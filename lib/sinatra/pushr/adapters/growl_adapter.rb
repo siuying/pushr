@@ -4,7 +4,7 @@ require 'ruby-growl'
 module Sinatra
   module Pushr
     module Adapters
-      class GrowlAdpater < BaseAdpater
+      class GrowlAdapter < BaseAdapter
         def initialize
           @log = Logger.new($stdout)
         end
@@ -14,7 +14,7 @@ module Sinatra
           g = Growl.new dest, "pushr", ["pushr notification"]
           g.notify "pushr notification", title, message
         end
-
+        
         register self
       end
     end

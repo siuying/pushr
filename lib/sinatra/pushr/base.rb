@@ -17,7 +17,7 @@ module Sinatra
 
         app.before do
           @timeout = options.timeout
-          Sinatra::Pushr::Adapters.configure(options.adapter_config)
+          Sinatra::Pushr::Adapters.configure(options)
         end
 
         app.get '/' do
@@ -51,7 +51,7 @@ module Sinatra
           find_node(params[:name])
           title   = params[:title]
           message = params[:message]
-          raise ArgumentError.new("Missing required parameter") if (@node.nil? || title.nil? || message.nil?)
+          raise ArgumentError.new("Missing required parameter") if (@node.nil? || message.nil?)
           
           Timeout::timeout(@timeout) do
             Sinatra::Pushr::Adapters.send_message(@node.adapter, @node.destination, title, message)

@@ -1,7 +1,7 @@
 module Sinatra
   module Pushr
     module Adapters
-      class BaseAdpater
+      class BaseAdapter
         attr_accessor :options
 
         def self.register(clazz)
@@ -25,7 +25,7 @@ module Sinatra
               last.
               gsub(/(.)([A-Z])/, '\1_\2').
               downcase.
-              gsub(/_adpater$/, '').
+              gsub(/_adapter$/, '').
               to_sym
         end
       end
@@ -35,9 +35,9 @@ module Sinatra
       end
       module_function :configure
       
-      def send_message(adapter, dest, title, message)
-        adapter = Factory.instance.adapters[adapter.to_sym]
-        raise ArgumentError.new("adapter not found") if adapter.nil?
+      def send_message(adapter_name, dest, title, message)
+        adapter = Factory.instance.adapters[adapter_name.to_sym]
+        raise ArgumentError.new("adapter not found: #{adapter_name}") if adapter.nil?
         adapter.send_message(dest, title, message)
       end
       module_function :send_message

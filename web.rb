@@ -11,10 +11,12 @@ Sinatra::Pushr::Node.first rescue DataMapper.auto_migrate!
 
 class Pushr < Sinatra::Default
   register Sinatra::Pushr::Base
+
   set :timeout, 20
   set :views,  'views'
   set :public, 'public'
-  set :environment, ENV['RACK_ENV']
+  set :environment, ENV['RACK_ENV'].to_sym
+  set :adapters, "email,growl,twitter"
   set :adapter_config, {}
 
 end
