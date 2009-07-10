@@ -25,14 +25,21 @@ module Sinatra
         def configure(options={})
           @log.info "configure email"
           @sender = options[:mail_from] || ENV['MAIL_FROM']
+          @address = options[:email_address] || ENV['MAIL_ADDRESS']
+          @port = options[:email_port] || ENV['MAIL_PORT']
+          @user = options[:email_user] || ENV['MAIL_USER']
+          @pass = options[:email_pass] || ENV['MAIL_PASS']
+          @tls = options[:email_tls] || (ENV['MAIL_TLS_ENABLED'] == "true")
+          
           Notifier.smtp_settings = {
-            :address        => options[:email_address] || ENV['MAIL_ADDRESS'],
-            :port           => options[:email_port] || ENV['MAIL_PORT'],
-            :user_name      => options[:email_user] || ENV['MAIL_USER'],
-            :password       => options[:email_pass] || ENV['MAIL_PASS'],
+            :address        => @address,
+            :port           => @port,
+            :user_name      => @user,
+            :password       => @pass,
             :authentication => :plain,
-            :tls            => options[:email_address] || ENV['MAIL_TLS_ENABLED'] == "true"
+            :tls            => @tls
           }
+          raise ArgumentError.new("missing config, please set environment variables MAIL_FROM, MAIL_ADDRESS, MAIL_PORT, MAIL_USER and MAIL_PASS") if (@sender.nil? || @address.nil? || @port.nil? || @user.nil? || @pass.nil?)
         end
 
         def send_message(dest, title, message)

@@ -15,7 +15,7 @@ module Sinatra
           @pass = options[:twitter_pass] || ENV['TWITTER_PASS']
 
           raise ArgumentError.new("twitter protocol unknown, must be http or https") if (@protocol != "http" && @protocol != "https")
-          raise ArgumentError.new("missing twitter user or password") if (@user.nil? || @pass.nil?)     
+          raise ArgumentError.new("missing twitter user or password, please set environment variables TWITTER_USER and TWITTER_PASS") if (@user.nil? || @pass.nil?)
         end
         
         def send_message(dest, title, message)
