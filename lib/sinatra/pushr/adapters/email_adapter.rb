@@ -12,15 +12,7 @@ class Notifier < ActionMailer::Base
 end
 
 Notifier.delivery_method = :smtp
-Notifier.template_root = File.expand_path(File.dirname(__FILE__), "../../../../views")
-Notifier.smtp_settings = {
-  :address        => ENV['MAIL_ADDRESS'],
-  :port           => ENV['MAIL_PORT'],
-  :user_name      => ENV['MAIL_USER'],
-  :password       => ENV['MAIL_PASS'],
-  :authentication => :plain,
-  :tls            => ENV['MAIL_TLS_ENABLED'] == "true"
-}
+Notifier.template_root = "views"
 
 module Sinatra
   module Pushr
@@ -32,7 +24,15 @@ module Sinatra
 
         def configure(options={})
           @log.info "configure email"
-          @sender = options[:email_sender]
+          @sender = options[:mail_from] || ENV['MAIL_FROM']
+          Notifier.smtp_settings = {
+            :address        => options[:email_address] || ENV['MAIL_ADDRESS'],
+            :port           => options[:email_port] || ENV['MAIL_PORT'],
+            :user_name      => options[:email_user] || ENV['MAIL_USER'],
+            :password       => options[:email_pass] || ENV['MAIL_PASS'],
+            :authentication => :plain,
+            :tls            => options[:email_address] || ENV['MAIL_TLS_ENABLED'] == "true"
+          }
         end
 
         def send_message(dest, title, message)

@@ -14,7 +14,7 @@ class Pushr < Sinatra::Default
   set :timeout, 20
   set :views,  'views'
   set :public, 'public'
-  set :environment, :production
-  set :adapter_config, {:email_address => ENV['MAIL_FROM']}
+  set :environment, ENV['RACK_ENV']
+  set :adapter_config, {}
 
 end
